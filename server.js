@@ -7,6 +7,12 @@ const app = express();
 app.use(cors());
 app.use(express.text({ type: "application/xml" }));
 
+app.get("/", (req, res) => {
+    res.send("✅ Badge Connect Backend is running successfully.");
+});
+
+
+
 // Generic proxy route for any BadgeCert operation
 app.post("/api/badgecert", async (req, res) => {
     try {
