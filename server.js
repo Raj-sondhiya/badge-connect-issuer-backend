@@ -30,4 +30,25 @@ app.post("/api/badgecert", async (req, res) => {
     }
 });
 
+
+// ✅ NEW: Proxy badge image requests api for earner badge images
+app.get("/api/badge-image/:badgeId", async (req, res) => {
+    try {
+        const { badgeId } = req.params;
+        const url = `https://bcert.me/bc/html/img/badges/generated/badge-${badgeId}.png`;
+
+        const imageResponse = await fetch(url);
+
+        if (!imageResponse.ok) {
+            return res.status(404).send("Badge image not found");
+        }
+
+        res.setHeader("Content-Type", "image/png");
+        imageResponse.body.pipe(res);
+
+    } catch (err) {
+        console.error("Image Proxy Error:", err);
+        res.status(500).send("Internal Server Error");
+    }
+});
 app.listen(3000, () => console.log("✅ Backend running on http://localhost:3000"));
