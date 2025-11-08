@@ -32,7 +32,7 @@ app.post("/api/badgecert", async (req, res) => {
 
 
 // ✅ NEW: Proxy badge image requests api for earner badge images
-app.get("/api/badge-image/:badgeId", async (req, res) => {
+app.post("/api/badge-image/:badgeId", async (req, res) => {
     try {
         const { badgeId } = req.params;
         const url = `https://bcert.me/bc/html/img/badges/generated/badge-${badgeId}.png`;
